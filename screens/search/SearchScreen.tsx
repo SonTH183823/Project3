@@ -7,12 +7,14 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView,
+  KeyboardAvoidingView
 } from "react-native";
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
-import ListChat from "@components/ListChat";
+import ListChat from "@screens/home/ListChat";
 import Colors from '@constants/Colors';
-import ContentSearch from '@components/ContentSearch';
+import ContentSearch from '@screens/search/ContentSearch';
 
 const {width, height} = Dimensions.get('window');
 
@@ -24,8 +26,8 @@ const SearchScreen = ({navigation})=> {
     navigation.addListener('focus', focusOnInput);
     const[valueSearch, setValueSearch] = useState('');
     return(
-      <View style={styles.container}>
-        <View style={styles.headerView}>
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.headerView}>
             <View style={styles.searchBar}>
                 <Ionicons name='search-outline' size={20} color={Colors.GREY_TEXT} style={{marginLeft: 10, marginRight: 5}}/>
                 <TextInput
@@ -51,11 +53,11 @@ const SearchScreen = ({navigation})=> {
                 }}>
                 <Text style={styles.canceltext}>Huỷ</Text>
             </TouchableOpacity>
-        </View> 
+        </KeyboardAvoidingView> 
         <View style={styles.listChatView}>
           <ContentSearch />
         </View>
-      </View>
+      </SafeAreaView>
     )
 }
 
@@ -65,8 +67,6 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: Colors.light.background,
     paddingTop: '25@s',
-    paddingHorizontal: '15@s',
-    // backgroundColor: 'green'
   },
   headerView:{
     width: '100%',
@@ -74,8 +74,9 @@ const styles = ScaledSheet.create({
     marginBottom: '10@s',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between'
-    // backgroundColor: 'red'
+    justifyContent: 'space-between',
+    // backgroundColor: 'red',
+    paddingHorizontal: '15@s',
   },
   searchBar:{
     backgroundColor: '#efefef',
@@ -97,12 +98,9 @@ const styles = ScaledSheet.create({
     fontSize: '16@ms0.3',
   },
   listChatView:{
-    // backgroundColor: 'red',
     width: "100%",
-    // paddingTop: '10@s',
     flex: 1,
-    // borderColor: '#ccc',
-    // borderTopWidth: 0.8
+    paddingHorizontal: '15@s',
   },
   cancelBtn:{
       width: "10%",

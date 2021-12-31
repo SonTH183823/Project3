@@ -17,20 +17,11 @@ const linking: LinkingOptions<RootStackParamList> = {
       Root: {
         screens: {
           Home: 'Home',
-          TabOne: {
-            screens: {
-              TabOneScreen: 'one',
-            },
-          },
-          TabTwo: {
-            screens: {
-              TabTwoScreen: 'two',
-            },
-          },
+          Search: 'Search',
+          ChatRoom: 'ChatRoom',
+          ImageClassify: 'ImageClassify',
         },
       },
-      Modal: 'modal',
-      NotFound: '*',
     },
   },
 };

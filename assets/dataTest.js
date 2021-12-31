@@ -60,4 +60,12 @@ export const dataTest=[
       message: 'Tom and Jerry',
     },
 ];
+
+export const dataChatTest = [
+  {
+    userId: 1,
+    message: 'Alo ban oi',
+    time: new Date()
+  }
+]
   

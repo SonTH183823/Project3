@@ -6,7 +6,9 @@ import {
   Image,
   TextInput,
   Button,
-  TouchableOpacity
+  TouchableOpacity,
+  SafeAreaView,
+  KeyboardAvoidingView
 } from "react-native";
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -45,22 +47,27 @@ export default function LoginScreen({ navigation}) {
     }
   }
   return (
-    <View style={{width: '100%', flex: 1}}>
+    <SafeAreaView style={{width: '100%', flex: 1}}>
       <View style={styles.container}>
         {/* <Image style={styles.image} source={require("./assets/log2.png")} /> */}
         <Text style={styles.textLogo}>ChatApp</Text>
         <StatusBar style="auto" />
-        <PrimaryInput 
-          alert={emailAlert}
-          onChangeText={setEmail}
-          placeholder={'Email'}
-        />
+          <PrimaryInput 
+            alert={emailAlert}
+            onChangeText={(email)=>{
+              setEmailAlert('');
+              setEmail(email);
+            }}
+            placeholder={'Email'}
+          />
 
-        <PrimaryInputPass
-          alert={passAlert}
-          onChangeText={(pass)=>{handleChangePassword(pass)}}
-          placeholder={'Mật khẩu'}
-        />
+          <PrimaryInputPass
+            alert={passAlert}
+            onChangeText={(pass)=>{
+              handleChangePassword(pass)
+            }}
+            placeholder={'Mật khẩu'}
+          />
 
         <TouchableOpacity style={styles.forgotPassView}>
           <Text style={styles.forgot_button}>Quên mật khẩu?</Text>
@@ -87,7 +94,7 @@ export default function LoginScreen({ navigation}) {
           <Text style={styles.textSignup}>Đăng ký</Text>
         </TouchableOpacity>
     </View>
-  </View>
+  </SafeAreaView>
   );
 }
  

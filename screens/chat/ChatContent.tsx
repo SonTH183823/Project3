@@ -8,28 +8,31 @@ import {
   TouchableOpacity,
   Dimensions,
   Alert,
-  FlatList
+  FlatList,
+  KeyboardAvoidingView
 } from "react-native";
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
 import Colors from '@constants/Colors';
 import { dataTest } from '@assets/dataTest';
+import { useNavigation } from '@react-navigation/native';
 
-type StyledListChatProps = {
-  listUsers?: [];
+type StyledChatContentProps = {
+  listChat?: [];
 };
 
 
-export default ListChat = (props: StyledListChatProps, {navigation}) =>{
-    // const { listUsers } = props;
+export default ChatContent = (props: StyledChatContentProps) =>{
+    const navigation = useNavigation();
+    // const { listChat } = props;
     const renderUser = ({item})=>{
       return(
         <TouchableOpacity
             activeOpacity={0.8}
             style={styles.oneUserContainer}
             onPress={() => {
-              // navigation.push('ProductDetailsScreen', { item });
-              Alert.alert('clicked' + item.id);
+              navigation.navigate('ChatRoom', {data: item} );
+              // Alert.alert('clicked' + item.id);
             }}>
               <View style={styles.leftOneUser}>
                 <Image
@@ -59,7 +62,17 @@ export default ListChat = (props: StyledListChatProps, {navigation}) =>{
           keyExtractor={item => item.id}
           renderItem={(item) => renderUser(item)}
           showsVerticalScrollIndicator={false}
+          inverted
         />
+        {/* <KeyboardAvoidingView 
+          style={styles.keyboardView}
+          behavior={Platform.OS === 'ios' ? "padding": "height"}
+          keyboardVerticalOffset={scale(70)}
+        >
+            <View style={styles.bottomChatView}>
+                <TextInput placeholder="Enter chat" style={styles.chatInput}/>
+            </View>
+        </KeyboardAvoidingView> */}
       </View>
     );
 };
@@ -104,5 +117,14 @@ const styles = ScaledSheet.create({
     color: Colors.GREY_TEXT,
     marginVertical: '5@s',
     maxWidth: '80%',
-  }
+  },
+  bottomChatView:{
+    height: '50@s',
+    width: '100%',
+    // backgroundColor: 'green'
+  },
+  chatInput:{
+    height: '100%',
+    width: '100%',
+  },
 });

@@ -7,6 +7,7 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
+  SafeAreaView
 } from "react-native";
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -17,7 +18,7 @@ const {width, height} = Dimensions.get('window');
 
 const HomeScreen = ({navigation})=> {
     return(
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.headerView}>
           <Text style={styles.fullNameText} numberOfLines={1}>Tô Hoài Sơn</Text>
           <View style={styles.iconHeader}>
@@ -26,7 +27,9 @@ const HomeScreen = ({navigation})=> {
             }}>
               <Ionicons name='search-outline' size={28} color={Colors.light.text} style={{marginLeft: 15}}/>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.searchBtn}>
+            <TouchableOpacity style={styles.searchBtn} onPress={() =>{
+              navigation.navigate('ImageClassify');
+            }}>
               <Ionicons name='camera-outline' size={30} color={Colors.light.text} style={{marginHorizontal: 15}}/>
             </TouchableOpacity>
             <TouchableOpacity style={styles.searchBtn}>
@@ -39,7 +42,7 @@ const HomeScreen = ({navigation})=> {
         <View style={styles.listChatView}>
           <ListChat />
         </View>
-      </View>
+      </SafeAreaView>
     )
 }
 
@@ -49,7 +52,6 @@ const styles = ScaledSheet.create({
     flex: 1,
     backgroundColor: Colors.light.background,
     paddingTop: '25@s',
-    paddingHorizontal: '15@s',
   },
   headerView:{
     width: '100%',
@@ -57,7 +59,8 @@ const styles = ScaledSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: '10@s',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
+    paddingHorizontal: '10@s',
   },
   iconHeader:{
     flexDirection: 'row',
@@ -74,9 +77,11 @@ const styles = ScaledSheet.create({
     fontWeight: 'bold',
     fontSize: 28,
     flex: 1,
+    paddingLeft:'5@s'
   },
   listChatView:{
     // backgroundColor: 'red',
+    paddingHorizontal: '10@s',
     width: "100%",
     // paddingTop: '10@s',
     flex: 1,
