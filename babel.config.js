@@ -1,21 +1,22 @@
 module.exports = function(api) {
-  api.cache(true);
-  return {
-    presets: ['babel-preset-expo'],
-    plugins: [
-      [
-        'module-resolver',
-        {
-          alias: {
-            '@assets': './assets/',
-            '@constants': './constants/',
-            '@hooks': './hooks/',
-            '@components': './components/',
-            '@screens': './screens/',
-            '@navigation': './navigation/',
-          }
-        }
-      ]
-    ]
-  };
+	api.cache(true);
+	return {
+		presets: ['babel-preset-expo'],
+		plugins: [
+			[
+				'module-resolver',
+				{
+					alias: {
+						'@assets': './assets/',
+						'@shared': './shared/',
+						// '@hooks': './hooks/',
+						'@components': './components/',
+						'@screens': './screens/',
+						'@navigation': './navigation/',
+						// '@firebase': './firebase/'
+					}
+				}
+			]
+		]
+	};
 };
