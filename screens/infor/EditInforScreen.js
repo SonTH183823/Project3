@@ -95,7 +95,7 @@ export default function EditInforScreen({ navigation }) {
         displayName: name,
         email: user.email,
       };
-      if (photoURL) {
+      if (photoURL != '') {
         userData.photoURL = photoURL;
       }else{
         userData.photoUR = default_avatar;

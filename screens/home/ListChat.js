@@ -26,11 +26,12 @@ export default ListChat = () =>{
     const emptyChats = ()=>{
       return (
         <View style={styles.emptyChatsView}>
+          <Ionicons name='chatbubble-outline' size={100} color='black'/>
           <Text style={styles.textEmptyChats}>Chưa có cuộc trò chuyện nào!!!</Text>
           <TouchableOpacity style={styles.BtnSeach} onPress={() => navigation.navigate('Search')}>
             {/* <Ionicons name='search-outline' size={26} color='white'/> */}
             <Text style={[styles.textEmptyChats, {color: 'white', marginRight: 5 }]}>Bắt đầu</Text>
-            <Ionicons name='chatbubble-outline' size={24} color='white'/>
+            <Ionicons name='arrow-forward-circle-outline' size={24} color='white'/>
           </TouchableOpacity>
         </View>
       )
@@ -168,6 +169,6 @@ const styles = ScaledSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     borderRadius: 40,
-    marginTop: '10@s'
+    marginTop: '30@s'
   }
 });

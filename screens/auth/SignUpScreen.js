@@ -23,12 +23,12 @@ import { updateProfile } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
 export default function LoginScreen({ navigation }) {
-    const [email, setEmail] = useState("abc@gmail.com");
+    const [email, setEmail] = useState("");
     const [passAlert, setPassAlert] = useState("");
     const [passAlertAgain, setPassAlertAgain] = useState("");
     const [emailAlert, setEmailAlert] = useState("");
-    const [passwordAgain, setPasswordAgain] = useState("123456");
-    const [password, setPassword] = useState("123456");
+    const [passwordAgain, setPasswordAgain] = useState("");
+    const [password, setPassword] = useState("");
     const [isProcess, setIsProcess] = useState(true);
 
     const checkEmail = () => {

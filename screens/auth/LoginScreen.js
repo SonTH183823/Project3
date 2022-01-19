@@ -22,10 +22,10 @@ import { auth } from '../../firebase';
 import { signInWithEmailAndPassword } from "firebase/auth";
  
 export default function LoginScreen({ navigation}) {
-  const [email, setEmail] = useState("quang@gmail.com");
+  const [email, setEmail] = useState("");
   const [passAlert, setPassAlert] = useState("");
   const [emailAlert, setEmailAlert] = useState("");
-  const [password, setPassword] = useState("123456");
+  const [password, setPassword] = useState("");
   const [isProcess, setIsProcess] = useState(true);
 
   const checkEmail = () => {
@@ -139,7 +139,7 @@ export default function LoginScreen({ navigation}) {
         </View>        
       </View>
       <View style={styles.signUpView}>
-      <Text>Bạn chưa có tài khoản ư? </Text>
+      <Text>Bạn chưa có tài khoản? </Text>
       <TouchableOpacity style={styles.btnSignup} onPress={() =>{
         navigation.navigate('SignUp');
       }}>

@@ -65,7 +65,7 @@ export default ImageClassifyScreen = ({navigation}) => {
     }
 
     const handleImage1 = () => {
-        setUri(linkImage[0]);
+        setUri(linkImage[4]);
         setResultText('');
     }
 
@@ -75,7 +75,7 @@ export default ImageClassifyScreen = ({navigation}) => {
     }
 
     const handleImage3 = () => {
-        setUri(linkImage[2]);
+        setUri(linkImage[0]);
         setResultText('');
     }
 

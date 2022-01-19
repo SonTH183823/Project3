@@ -7,7 +7,8 @@ import {
   Button,
   TouchableOpacity,
   Dimensions,
-  SafeAreaView
+  SafeAreaView,
+  ActivityIndicator
 } from "react-native";
 import { ScaledSheet, scale } from 'react-native-size-matters';
 import { Ionicons, FontAwesome } from '@expo/vector-icons';
@@ -17,24 +18,24 @@ import { auth, db } from '../../firebase';
 import GlobalContext from "../../context/Context";
 import { useIsFocused } from '@react-navigation/native';
 import { collection, onSnapshot, query, where } from "@firebase/firestore";
-import useContacts from "../../hooks/useHooks";
 
 const {width, height} = Dimensions.get('window');
+const default_avatar = 'https://www.teenwiseseattle.com/wp-content/uploads/2017/04/default_avatar.png';
 
 const HomeScreen = ({navigation})=> {
   const myInfo = ()=>{
     navigation.navigate('MyInfor', {name: user.displayName, image: user.photoURL, email: user.email, isMe: true });
   }
-
-  // const contacts = useContacts();
   const { currentUser } = auth;
-  // console.log(currentUser.email);
+  
   const { rooms, setRooms, unfilteredRooms, setUnfilteredRooms } = useContext(GlobalContext);
+  const [isLoading, setIsLoading]= useState(true);
   const chatsQuery = query(
     collection(db, "rooms"),
     where("participantsArray", "array-contains", currentUser.email)
   );
   useEffect(() => {
+    setIsLoading(false);
     const unsubscribe = onSnapshot(chatsQuery, (querySnapshot) => {
       const parsedChats = querySnapshot.docs.map((doc) => ({
         ...doc.data(),
@@ -46,22 +47,20 @@ const HomeScreen = ({navigation})=> {
       setUnfilteredRooms(parsedChats);
       setRooms(parsedChats);
       setRooms(parsedChats.filter((doc) => doc.id).sort((a, b) =>{
-        // console.log(b.lastMessage?.createdAt.seconds - a.lastMessage?.createdAt.seconds);
         if(b.lastMessage && a.lastMessage){
           return (b.lastMessage?.createdAt.seconds - a.lastMessage?.createdAt.seconds);
         }else if(b.lastMessage){
-          // console.log(b.lastMessage.createdAt.seconds);
-          // console.log(b.lastMessage.createdAt.seconds - Math.round(new Date().getTime()/1000));
           return (b.lastMessage.createdAt.seconds - Math.round(new Date().getTime()/1000));
         }
       }));
-      // console.log(rooms.length);
+      setIsLoading(true);
     });
     return () => unsubscribe();
   }, []);
   
   const isFocused = useIsFocused();
   const [user,setUser] = useState(auth.currentUser);
+  // console.log(user.photoURL);
   useEffect(() => {
     setUser(auth.currentUser);
     }, [isFocused])
@@ -72,7 +71,7 @@ const HomeScreen = ({navigation})=> {
             <Image
               style={styles.avaUser}
               resizeMode="cover"
-              source={{uri: user.photoURL}}
+              source={{uri: user.photoURL || default_avatar}}
             />
             <Text style={styles.fullNameText} numberOfLines={1}>{user.displayName}</Text>
           </TouchableOpacity>
@@ -93,7 +92,9 @@ const HomeScreen = ({navigation})=> {
           </View>
         </View>
         <View style={styles.listChatView}>
-          <ListChat />
+          {!isLoading ? 
+            <ActivityIndicator size="large" color={Colors.GREY_TEXT} style={{marginTop: 20}} /> : <ListChat />
+          }
         </View>
       </SafeAreaView>
     )

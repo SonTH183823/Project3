@@ -11,9 +11,10 @@ LogBox.ignoreLogs([
   "AsyncStorage has been extracted from react-native core and will be removed in a future release.",
   "Animated: `useNativeDriver` was not specified. This is a required option and must be explicitly set to `true` or `false`",
   "Animated.event now requires a second argument for options",
-  "Warning: Encountered two children with the same key"
+  "Warning: Encountered two children with the same key",
+  "Warning: Can't perform a React state update on an unmounted component."
 ]);
-// LogBox.ignoreAllLogs();
+LogBox.ignoreAllLogs();
 function App() {
   return (
     <SafeAreaProvider >
